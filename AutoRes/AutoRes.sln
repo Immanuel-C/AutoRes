@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34316.72
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoRes", "AutoRes\AutoRes.csproj", "{EBE55ACA-18C0-4330-9E66-8D247017985F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EBE55ACA-18C0-4330-9E66-8D247017985F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBE55ACA-18C0-4330-9E66-8D247017985F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBE55ACA-18C0-4330-9E66-8D247017985F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBE55ACA-18C0-4330-9E66-8D247017985F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {61CEE04F-629E-4603-9FEF-56E7B3FA3F28}
+	EndGlobalSection
+EndGlobal
