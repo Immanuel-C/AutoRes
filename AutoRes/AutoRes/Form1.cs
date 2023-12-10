@@ -1,5 +1,30 @@
+using System;
+using System.Numerics;
+using System.Runtime.InteropServices;
+
 namespace AutoRes
 {
+    /*
+    typedef struct _SYSTEM_POWER_STATUS
+    {
+        BYTE ACLineStatus;
+        BYTE BatteryFlag;
+        BYTE BatteryLifePercent;
+        BYTE SystemStatusFlag;
+        DWORD BatteryLifeTime;
+        DWORD BatteryFullLifeTime;
+    } SYSTEM_POWER_STATUS, * LPSYSTEM_POWER_STATUS;
+    */
+
+    public struct LPSYSTEM_POWER_STATUS
+    {
+        public byte ACLineStatus;
+        public byte BatteryFlag;
+        public byte BatteryLifePercent;
+        public byte SystemStatusFlag;
+        public UInt32 BatteryLifeTime;
+        public UInt32 BatteryFullLifeTime;
+    }
     public partial class Form1 : Form
     {
 
@@ -21,6 +46,14 @@ namespace AutoRes
 
         string currentGame = "";
 
+        /*
+        BOOL GetSystemPowerStatus(
+            [out] LPSYSTEM_POWER_STATUS lpSystemPowerStatus
+        );
+        */
+        [DllImport("Kernel32.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern int GetSystemPowerStatus(out LPSYSTEM_POWER_STATUS lpSystemPowerStatus);
+
         public Form1()
         {
             InitializeComponent();
@@ -28,9 +61,9 @@ namespace AutoRes
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.FormBorderStyle = FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
+            MinimizeBox = false;
 
             string desktopName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
             string username = desktopName.Substring(desktopName.IndexOf('\\') + 1);
@@ -67,6 +100,7 @@ namespace AutoRes
         {
             FPSLimitLabel.Visible = visible;
             FPSLimitTextBox.Visible = visible;
+            ResolutionAndFpsOnlyCheckBox.Visible = visible;
         }
 
 
@@ -184,6 +218,56 @@ namespace AutoRes
                     else if (line.Contains("FrameRateLimit="))
                     {
                         LineChanger("FrameRateLimit=" + FPSLimitTextBox.Text, fortniteSettingsFileName, i);
+                    }
+                    if (!ResolutionAndFpsOnlyCheckBox.Checked)
+                    {
+                        if (line.Contains("bIsEnergySavingEnabledIdle="))
+                        {
+                            LPSYSTEM_POWER_STATUS powerStatus;
+                            GetSystemPowerStatus(out powerStatus);
+                            // Check https://learn.microsoft.com/en-us/windows/win32/api/winbase/ns-winbase-system_power_status?redirectedfrom=MSDN for values
+                            if (powerStatus.BatteryFlag == 128)
+                            {
+                                LineChanger("bIsEnergySavingEnabledIdle=False", fortniteSettingsFileName, i);
+                            }
+                            else
+                            {
+                                LineChanger("bIsEnergySavingEnabledIdle=True", fortniteSettingsFileName, i);
+                            } 
+
+                        }
+                        else if (line.Contains("bIsEnergySavingEnabledFocusLoss="))
+                        {
+                            LPSYSTEM_POWER_STATUS powerStatus;
+                            GetSystemPowerStatus(out powerStatus);
+                            if (powerStatus.BatteryFlag == 128)
+                            {
+                                LineChanger("bIsEnergySavingEnabledFocusLoss=False", fortniteSettingsFileName, i);
+                            }
+                            else
+                            {
+                                LineChanger("bIsEnergySavingEnabledFocusLoss=True", fortniteSettingsFileName, i);
+                            }
+
+                        }
+                        else if (line.Contains("bIsEnergySavingEnabledIdle="))
+                        {
+                            LPSYSTEM_POWER_STATUS powerStatus;
+                            GetSystemPowerStatus(out powerStatus);
+                            if (powerStatus.BatteryFlag == 128)
+                            {
+                                LineChanger("EnergySavingLevelFocusLoss=1", fortniteSettingsFileName, i);
+                            }
+                            else
+                            {
+                                LineChanger("EnergySavingLevelFocusLoss=0", fortniteSettingsFileName, i);
+                            }
+
+                        }
+                        else if (line.Contains("AudioQualityLevel="))
+                        {
+                            LineChanger("AudioQualityLevel=1", fortniteSettingsFileName, i);
+                        }
                     }
 
                 }

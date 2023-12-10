@@ -43,6 +43,7 @@
             CustomWidthLabel = new Label();
             FPSLimitTextBox = new TextBox();
             FPSLimitLabel = new Label();
+            ResolutionAndFpsOnlyCheckBox = new CheckBox();
             SuspendLayout();
             // 
             // GameDropDown
@@ -67,7 +68,7 @@
             // FileToReadOnlyCheckBox
             // 
             FileToReadOnlyCheckBox.AutoSize = true;
-            FileToReadOnlyCheckBox.Location = new Point(81, 208);
+            FileToReadOnlyCheckBox.Location = new Point(10, 208);
             FileToReadOnlyCheckBox.Name = "FileToReadOnlyCheckBox";
             FileToReadOnlyCheckBox.Size = new Size(135, 19);
             FileToReadOnlyCheckBox.TabIndex = 2;
@@ -98,7 +99,7 @@
             // CustomResolutionCheckBox
             // 
             CustomResolutionCheckBox.AutoSize = true;
-            CustomResolutionCheckBox.Location = new Point(81, 183);
+            CustomResolutionCheckBox.Location = new Point(10, 180);
             CustomResolutionCheckBox.Name = "CustomResolutionCheckBox";
             CustomResolutionCheckBox.Size = new Size(127, 19);
             CustomResolutionCheckBox.TabIndex = 5;
@@ -154,11 +155,22 @@
             FPSLimitLabel.TabIndex = 12;
             FPSLimitLabel.Text = "FPS Limit";
             // 
+            // ResolutionAndFpsOnlyCheckBox
+            // 
+            ResolutionAndFpsOnlyCheckBox.AutoSize = true;
+            ResolutionAndFpsOnlyCheckBox.Location = new Point(10, 180);
+            ResolutionAndFpsOnlyCheckBox.Name = "ResolutionAndFpsOnlyCheckBox";
+            ResolutionAndFpsOnlyCheckBox.Size = new Size(221, 19);
+            ResolutionAndFpsOnlyCheckBox.TabIndex = 13;
+            ResolutionAndFpsOnlyCheckBox.Text = "Change only resolution and FPS limit";
+            ResolutionAndFpsOnlyCheckBox.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(296, 239);
+            Controls.Add(ResolutionAndFpsOnlyCheckBox);
             Controls.Add(FPSLimitLabel);
             Controls.Add(FPSLimitTextBox);
             Controls.Add(CustomWidthLabel);
@@ -193,5 +205,6 @@
         private Label CustomWidthLabel;
         private TextBox FPSLimitTextBox;
         private Label FPSLimitLabel;
+        private CheckBox ResolutionAndFpsOnlyCheckBox;
     }
 }
