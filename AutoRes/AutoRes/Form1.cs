@@ -87,6 +87,7 @@ namespace AutoRes
 
             FPSLimitLabel.Visible = false;
             FPSLimitTextBox.Visible = false;
+            ResolutionAndFpsOnlyCheckBox.Visible = false;
 
             ApexResolutionDropDown.DataSource = ApexSupportedResolutions;
         }
